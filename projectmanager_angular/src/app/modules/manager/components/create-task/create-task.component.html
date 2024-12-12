@@ -1,0 +1,57 @@
+<div class="container">
+  <h2>Create Task</h2>
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" required />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" required></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Due Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="dueDatePicker"
+        formControlName="dueDate"
+        required
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="dueDatePicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #dueDatePicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Priority</mat-label>
+      <mat-select formControlName="priority" required>
+        <mat-option value="LOW">LOW</mat-option>
+        <mat-option value="MEDIUM">MEDIUM</mat-option>
+        <mat-option value="HIGH">HIGH</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Assign to Employee</mat-label>
+      <mat-select formControlName="employee" required>
+        <mat-option
+          *ngFor="let employee of listOfEmployees"
+          [value]="employee.id"
+        >
+          {{ employee.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="taskForm.get('employee')?.hasError('required')">
+        This input is required!
+      </mat-error>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="taskForm.invalid"
+    >
+      Create Task
+    </button>
+  </form>
+</div>

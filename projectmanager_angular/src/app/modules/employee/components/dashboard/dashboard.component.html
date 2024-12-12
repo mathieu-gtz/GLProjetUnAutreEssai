@@ -1,0 +1,27 @@
+<div class="container">
+  <h2>My Tasks</h2>
+  <div class="tasks-list">
+    <mat-card
+      *ngFor="let task of tasks"
+      (click)="viewTask(task.id)"
+      class="task-card"
+    >
+      <mat-card-header>
+        <mat-card-title>{{ task.title }}</mat-card-title>
+        <mat-card-subtitle>{{ task.dueDate | date }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ task.description }}</p>
+        <p><strong>Project:</strong> {{ task.projectName }}</p>
+        <p>
+          <strong>Status:</strong>
+          <span class="status">{{ task.taskStatus }}</span>
+        </p>
+        <p>
+          <strong>Priority:</strong>
+          <span class="priority">{{ task.priority }}</span>
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

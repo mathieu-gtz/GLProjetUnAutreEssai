@@ -1,0 +1,52 @@
+<div class="dashboard-container">
+  <h2>Manager Dashboard</h2>
+  <button
+    mat-raised-button
+    color="primary"
+    routerLink="/manager/create-project"
+  >
+    Create Project
+  </button>
+
+  <!-- Formulaire de recherche (commenté pour l'instant) -->
+  <!--
+  <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+    <mat-form-field appearance="outline">
+      <mat-label>Search Projects</mat-label>
+      <input
+        matInput
+        formControlName="title"
+        placeholder="Enter project title"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        mat-icon-button
+        aria-label="Search"
+        type="submit"
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </form>
+  -->
+
+  <div class="projects-list">
+    <mat-card
+      *ngFor="let project of projects"
+      (click)="viewProject(project.id)"
+    >
+      <mat-card-header>
+        <mat-card-title>{{ project.name }}</mat-card-title>
+        <mat-card-subtitle>{{ project.endDate | date }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ project.description }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div *ngIf="projects.length === 0">
+    <p>No projects found.</p>
+  </div>
+</div>

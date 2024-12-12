@@ -1,0 +1,22 @@
+<div class="container">
+  <h2>Task Details</h2>
+  <div *ngIf="task">
+    <p><strong>Title:</strong> {{ task.title }}</p>
+    <p><strong>Description:</strong> {{ task.description }}</p>
+    <p><strong>Due Date:</strong> {{ task.dueDate | date }}</p>
+    <p><strong>Project:</strong> {{ task.projectName }}</p>
+    <p><strong>Status:</strong> {{ task.taskStatus }}</p>
+    <p><strong>Priority:</strong> {{ task.priority }}</p>
+  </div>
+  <form [formGroup]="taskForm" (ngSubmit)="updateTaskStatus()">
+    <mat-form-field appearance="outline">
+      <mat-label>Update Status</mat-label>
+      <mat-select formControlName="taskStatus" required>
+        <mat-option value="PENDING">PENDING</mat-option>
+        <mat-option value="INPROGRESS">INPROGRESS</mat-option>
+        <mat-option value="COMPLETED">COMPLETED</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Update Task</button>
+  </form>
+</div>

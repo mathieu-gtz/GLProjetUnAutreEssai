@@ -1,0 +1,58 @@
+<div class="container">
+  <h2>Update Task</h2>
+  <form [formGroup]="updateTaskForm" (ngSubmit)="updateTask()">
+    <mat-form-field appearance="outline">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title" required />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" required></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Due Date</mat-label>
+      <input
+        matInput
+        [matDatepicker]="dueDatePicker"
+        formControlName="dueDate"
+        required
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="dueDatePicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #dueDatePicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Priority</mat-label>
+      <mat-select formControlName="priority" required>
+        <mat-option
+          *ngFor="let priority of listOfPriorities"
+          [value]="priority"
+        >
+          {{ priority }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="taskStatus" required>
+        <mat-option *ngFor="let status of listOfTaskStatus" [value]="status">
+          {{ status }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Employee</mat-label>
+      <mat-select formControlName="employee" required>
+        <mat-option
+          *ngFor="let employee of listOfEmployees"
+          [value]="employee.id"
+        >
+          {{ employee.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Update Task</button>
+  </form>
+</div>

@@ -1,0 +1,19 @@
+.container {
+    padding: 20px;
+  
+    .tasks-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+  
+      mat-card {
+        width: 300px;
+        cursor: pointer;
+      }
+    }
+
+    mat-progress-bar {
+        width: 50%; // Ajustez la largeur selon vos besoins
+        margin-top: 10px; // Ajoutez un espace au-dessus de la barre de progression
+      }
+  }

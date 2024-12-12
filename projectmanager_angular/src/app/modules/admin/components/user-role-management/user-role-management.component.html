@@ -1,0 +1,23 @@
+<div>
+  <h2>Manage User Roles</h2>
+  <form [formGroup]="userRoleForm" (ngSubmit)="onSubmit()">
+    <mat-form-field>
+      <mat-label>User</mat-label>
+      <mat-select formControlName="userId">
+        <mat-option *ngFor="let user of users" [value]="user.id">
+          {{ user.name }} ({{ user.email }})
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Role</mat-label>
+      <mat-select formControlName="role">
+        <mat-option value="MANAGER">Manager</mat-option>
+        <mat-option value="EMPLOYEE">Employee</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit">Update Role</button>
+  </form>
+</div>

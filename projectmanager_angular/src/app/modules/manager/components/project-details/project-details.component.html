@@ -1,0 +1,32 @@
+<div class="container">
+  <h2>Project Details</h2>
+  <div *ngIf="project">
+    <p><strong>Name:</strong> {{ project.name }}</p>
+    <p><strong>Description:</strong> {{ project.description }}</p>
+    <p><strong>Start Date:</strong> {{ project.startDate | date }}</p>
+    <p><strong>End Date:</strong> {{ project.endDate | date }}</p>
+    <p><strong>Progress:</strong></p>
+    <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+    <h3>Tasks</h3>
+    <div class="tasks-list">
+      <mat-card *ngFor="let task of project.tasks" (click)="viewTask(task.id)">
+        <mat-card-header>
+          <mat-card-title>{{ task.title }}</mat-card-title>
+          <mat-card-subtitle>{{ task.dueDate | date }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ task.description }}</p>
+          <p><strong>Status:</strong> {{ task.taskStatus }}</p>
+          <p><strong>Priority:</strong> {{ task.priority }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <button
+      mat-raised-button
+      color="primary"
+      [routerLink]="['/manager/project', project.id, 'create-task']"
+    >
+      Create Task
+    </button>
+  </div>
+</div>
