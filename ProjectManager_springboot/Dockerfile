@@ -1,33 +1,7 @@
-# Étape 1: Utilisation de l'image de base OpenJDK pour compiler le projet
-FROM openjdk:17-jdk-slim AS build
-
-# Installation de Maven
-RUN apt-get update && apt-get install -y maven
-
-# Définir le répertoire de travail
-WORKDIR /app
-
-# Copier le fichier pom.xml et télécharger les dépendances Maven
-COPY ./pom.xml .
-RUN mvn dependency:go-offline
-
-# Copier tout le code source dans l'image Docker
-COPY . .
-
-# Compiler l'application avec Maven (pas de tests)
-RUN mvn clean package -DskipTests
-
-# Étape 2: Utilisation d'une image Java plus légère pour l'exécution
 FROM openjdk:17-jdk-slim
 
-# Définir le répertoire de travail pour l'exécution
-WORKDIR /app
+# Ajoutez votre fichier JAR
+COPY target/your-app.jar /app/your-app.jar
 
-# Copier le fichier JAR généré depuis l'étape précédente
-COPY --from=build /app/target/*.jar app.jar
-
-# Exposer le port 8080 pour l'application Spring Boot
-EXPOSE 8080
-
-# Commande pour exécuter l'application Spring Boot
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Simulez les arguments JVM utilisés dans l'IDE
+CMD ["java", "-XX:TieredStopAtLevel=1", "-Dspring.output.ansi.enabled=always", "-Dcom.sun.management.jmxremote", "-Dspring.jmx.enabled=true", "-Dspring.liveBeansView.mbeanDomain", "-Dspring.application.admin.enabled=true", "-Dmanagement.endpoints.jmx.exposure.include=*", "-Dfile.encoding=UTF-8", "-Dsun.stdout.encoding=UTF-8", "-Dsun.stderr.encoding=UTF-8", "-jar", "/app/your-app.jar"]
