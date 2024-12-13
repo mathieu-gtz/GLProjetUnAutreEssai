@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d6761749-a0ac-4951-94d2-06981a9e0863" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../render.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ProjectManager_springboot/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../ProjectManager_springboot/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ProjectManager_springboot/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../ProjectManager_springboot/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../projectmanager_angular/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../projectmanager_angular/Dockerfile" afterDir="false" />
@@ -69,7 +69,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1734115457210</updated>
-      <workItem from="1734115458242" duration="2118000" />
+      <workItem from="1734115458242" duration="2992000" />
     </task>
     <servers />
   </component>
