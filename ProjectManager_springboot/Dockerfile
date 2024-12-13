@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y maven
 WORKDIR /app
 
 # Copier le fichier pom.xml et télécharger les dépendances Maven
-COPY pom.xml .
+COPY ./pom.xml .
 RUN mvn dependency:go-offline
 
 # Copier tout le code source dans l'image Docker
