@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-slim AS runtime
 WORKDIR /app
 
 # Copier le fichier JAR à partir du répertoire correct
-COPY --from=build ./out/artifacts/ProjectManager_springboot_jar/ProjectManager_springboot.jar /app/ProjectManager_springboot.jar
+COPY out/artifacts/ProjectManager_springboot_jar/ProjectManager_springboot.jar /app/ProjectManager_springboot.jar
 
 # Exposer le port sur lequel l'application va écouter (par défaut 8080 pour Spring Boot)
 EXPOSE 8080
