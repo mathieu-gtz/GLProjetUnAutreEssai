@@ -5,22 +5,15 @@ import com.example.ProjectManager_springboot.dto.ProjectDto;
 import com.example.ProjectManager_springboot.dto.TaskDto;
 import com.example.ProjectManager_springboot.dto.UserDto;
 import com.example.ProjectManager_springboot.entities.Project;
-import com.example.ProjectManager_springboot.entities.User;
-import com.example.ProjectManager_springboot.enums.TaskStatus;
-import com.example.ProjectManager_springboot.enums.UserRole;
 import com.example.ProjectManager_springboot.repositories.ProjectRepository;
-import com.example.ProjectManager_springboot.repositories.UserRepository;
 import com.example.ProjectManager_springboot.services.employee.EmployeeService;
 import com.example.ProjectManager_springboot.services.manager.ManagerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,7 +22,6 @@ import java.util.stream.Collectors;
 public class ManagerController {
     private final ManagerService managerService;
     private final ProjectRepository projectRepository;
-    private final EmployeeService employeeService;
 
     @PostMapping("/projects")
     public ResponseEntity<ProjectDto> createProject(@RequestBody ProjectDto projectDto) {
@@ -130,10 +122,6 @@ public class ManagerController {
         return ResponseEntity.ok(employees);
     }
 
-    @GetMapping(path="/tasks/search/{title}")
-    public ResponseEntity<List<TaskDto>> searchTask(@PathVariable String title) {
-        return ResponseEntity.ok(managerService.searchTaskByTitle(title));
-    }
 
     @PostMapping(path="/task/comment/{taskId}")
     public ResponseEntity<CommentDto> createComment(@PathVariable Long taskId, @RequestParam String content) {
@@ -145,5 +133,15 @@ public class ManagerController {
     @GetMapping(path="/comments/{taskId}")
     public ResponseEntity<List<CommentDto>> getCommentByTaskId(@PathVariable Long taskId) {
         return ResponseEntity.ok(managerService.getCommentsByTaskId(taskId));
+    }
+
+    @GetMapping(path="/projects/{projectId}/tasks/search/{title}")
+    public ResponseEntity<List<TaskDto>> searchTask(@PathVariable("projectId") Long projectId, @PathVariable("title") String title) {
+        return ResponseEntity.ok(managerService.searchProjectTaskByTitle(projectId, title));
+    }
+
+    @GetMapping(path="/managers/{managerId}/projects/search/{name}")
+    public ResponseEntity<List<ProjectDto>> searchProject(@PathVariable("managerId") Long managerId, @PathVariable("name") String name) {
+        return ResponseEntity.ok(managerService.searchManagerProjectByName(managerId, name));
     }
 }

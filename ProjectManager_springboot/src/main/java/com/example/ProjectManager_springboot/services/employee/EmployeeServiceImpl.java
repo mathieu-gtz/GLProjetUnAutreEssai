@@ -94,8 +94,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public List<TaskDto> searchTaskByTitle(String title) {
-        return taskRepository.findAllByTitleContaining(title)
+    public List<TaskDto> searchEmployeeTaskByTitle(Long employeeId, String title) {
+        return taskRepository.findAllByUser_IdAndTitleContaining(employeeId, title)
                 .stream()
                 .sorted(Comparator.comparing(Task::getDueDate).reversed())
                 .map(Task::getTaskDto)

@@ -60,8 +60,8 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.getCommentsByTaskId(taskId));
     }
 
-    @GetMapping(path="/tasks/search/{title}")
-    public ResponseEntity<List<TaskDto>> searchTask(@PathVariable String title) {
-        return ResponseEntity.ok(employeeService.searchTaskByTitle(title));
+    @GetMapping(path="/{employeeId}/tasks/search/{title}")
+    public ResponseEntity<List<TaskDto>> searchTask(@PathVariable("employeeId") Long employeeId, @PathVariable("title") String title) {
+        return ResponseEntity.ok(employeeService.searchEmployeeTaskByTitle(employeeId, title));
     }
 }

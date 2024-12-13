@@ -1,0 +1,134 @@
+.task-details {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.task-details p {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #333;
+  line-height: 1.6;
+}
+
+.task-details strong {
+  color: #673AB7;
+  font-weight: bold;
+}
+
+.task-info {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.task-info .info-row {
+  flex: 0 0 50%;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.task-info .info-row .info-label {
+  color: #777;
+  font-size: 14px;
+  margin-right: 8px;
+  font-weight: 600;
+}
+
+.task-info .info-row .info-value {
+  color: #333;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Couleur dynamique pour le statut et la priorité */
+.task-details .status, .task-details .priority {
+  font-weight: bold;
+  font-size: 14px;
+  color: #673AB7;
+}
+
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.update-button, .view-button {
+  background-color: #673AB7;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.update-button:hover, .view-button:hover {
+  background-color: #673AB7;
+}
+
+.comment-card {
+  margin-top: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.comment-card mat-card-content {
+  margin-top: 10px;
+}
+
+.comment-card mat-card-footer {
+  margin-left: 20px;
+}
+
+.comment-card form {
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-card button {
+  margin-top: 10px;
+  align-self: flex-end;
+}
+
+
+@media (max-width: 768px) {
+  .task-details p {
+    font-size: 14px;
+  }
+
+  .task-info .info-row {
+    flex: 0 0 100%;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .update-button, .view-button {
+    margin-left: 0;
+    margin-top: 10px;
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .comment-card mat-card-content {
+    padding: 15px;
+  }
+}
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba2.jpg');
+  background-size: cover;
+}

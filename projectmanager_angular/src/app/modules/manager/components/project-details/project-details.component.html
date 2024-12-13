@@ -1,3 +1,10 @@
+<form class="search-form" [formGroup]="searchForm">
+  <mat-form-field appearance="outline" class="search-input">
+    <mat-label>Enter Keyword to search </mat-label>
+    <input matInput formControlName="title" (input)="searchTask()">
+  </mat-form-field>
+</form>
+
 <div class="container">
   <h2>Project Details</h2>
   <div *ngIf="project">
@@ -7,6 +14,13 @@
     <p><strong>End Date:</strong> {{ project.endDate | date }}</p>
     <p><strong>Progress:</strong></p>
     <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+    <button
+      mat-raised-button
+      color="primary"
+      [routerLink]="['/manager/project', project.id, 'create-task']"
+    >
+      Create Task
+    </button>
     <h3>Tasks</h3>
     <div class="tasks-list">
       <mat-card *ngFor="let task of project.tasks" (click)="viewTask(task.id)">
@@ -16,17 +30,11 @@
         </mat-card-header>
         <mat-card-content>
           <p>{{ task.description }}</p>
-          <p><strong>Status:</strong> {{ task.taskStatus }}</p>
-          <p><strong>Priority:</strong> {{ task.priority }}</p>
+          <p><strong>Status:</strong> <strong [ngStyle]="{ color: getStatusColor(task.taskStatus), fontWeight: 'bold' }" >{{ task.taskStatus }}</strong></p>
+          <p><strong>Priority:</strong> <strong [ngStyle]="{ color: getPriorityColor(task.priority), fontWeight: 'bold' }" >{{ task.priority }} </strong></p>
         </mat-card-content>
       </mat-card>
     </div>
-    <button
-      mat-raised-button
-      color="primary"
-      [routerLink]="['/manager/project', project.id, 'create-task']"
-    >
-      Create Task
-    </button>
+
   </div>
 </div>

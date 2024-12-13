@@ -14,7 +14,7 @@ export class UpdateTaskComponent implements OnInit {
   taskId!: string;
   updateTaskForm!: FormGroup;
   listOfEmployees: any = [];
-  listOfPriorities: any = ["Low", "Medium", "High"];
+  listOfPriorities: any = ["LOW", "MEDIUM", "HIGH"];
   listOfTaskStatus: any = ["PENDING", "INPROGRESS", "COMPLETED", "DEFERRED", "CANCELLED"];
 
   constructor(

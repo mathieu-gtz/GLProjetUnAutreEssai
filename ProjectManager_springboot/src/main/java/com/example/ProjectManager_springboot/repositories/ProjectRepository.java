@@ -10,5 +10,8 @@ import java.util.Optional;
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Long> {
     List<Project> findByManagerId(Long managerId);
+
     Optional<Project> findById(Long projectId);
+
+    List<Project> findAllByManager_IdAndNameContaining(Long managerId, String name);
 }

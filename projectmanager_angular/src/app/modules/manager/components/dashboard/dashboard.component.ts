@@ -19,7 +19,11 @@ export class DashboardComponent implements OnInit {
     private managerService: ManagerService,
     private storageService: StorageService,
     private router: Router
-  ) {}
+  ) {
+    this.searchForm = this.fb.group({
+      title: [null]
+    });
+  }
 
   ngOnInit(): void {
     const managerId = StorageService.getUserId();
@@ -41,11 +45,19 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/manager/project', projectId]);
   }
 
-    // Méthode pour rechercher des projets (commentée pour l'instant)
-  /*
-  onSearch(): void {
-    const title = this.searchForm.get('title')?.value;
-    // Implémenter la logique de recherche ici
+  searchProject(){
+    this.projects = [];
+    const managerid = Number(StorageService.getUserId());
+    const title = this.searchForm.get('title')!.value;
+    if (title.trim() === '') {
+      this.managerService.getProjectsByManager(StorageService.getUserId()).subscribe(
+        (projects) => {
+          this.projects = projects;
+        });
+    } else {
+      this.managerService.searchProject(managerid, title).subscribe((res) => {
+        this.projects = res;
+      });
+    }
   }
-  */
 }

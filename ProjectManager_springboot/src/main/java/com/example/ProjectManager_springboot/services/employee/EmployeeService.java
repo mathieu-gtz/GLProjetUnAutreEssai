@@ -20,5 +20,5 @@ public interface EmployeeService {
 
     List<CommentDto> getCommentsByTaskId(Long taskId);
 
-    List<TaskDto> searchTaskByTitle(String title);
+    List<TaskDto> searchEmployeeTaskByTitle(Long employeeId, String title);
 }

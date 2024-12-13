@@ -1,11 +1,11 @@
 <div class="container">
   <h2>Task Details</h2>
-  <div *ngIf="task">
+  <div *ngIf="task" class="task-details">
     <p><strong>Title:</strong> {{ task.title }}</p>
     <p><strong>Description:</strong> {{ task.description }}</p>
     <p><strong>Due Date:</strong> {{ task.dueDate | date }}</p>
-    <p><strong>Status:</strong> {{ task.taskStatus }}</p>
-    <p><strong>Priority:</strong> {{ task.priority }}</p>
+    <p><strong>Status:</strong> <strong [ngStyle]="{ color: getStatusColor(task.taskStatus), fontWeight: 'bold' }" >{{ task.taskStatus }}</strong></p>
+    <p><strong>Priority:</strong> <strong [ngStyle]="{ color: getPriorityColor(task.priority), fontWeight: 'bold' }" >{{ task.priority }} </strong></p>
     <p><strong>Assigned to:</strong> {{ task.employeeName }}</p>
     <button
       mat-raised-button
@@ -15,4 +15,33 @@
       Edit Task
     </button>
   </div>
+</div>
+
+<mat-card class="comment-card">
+  <mat-card-content>
+    <h4>Publish your comments</h4>
+    <div>
+      <form [formGroup]="commentForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Content</mat-label>
+          <textarea matInput formControlName="content"></textarea>
+        </mat-form-field>
+        <button mat-raised-button color="primary" style="float :right;" [disabled]="!commentForm.valid" (click)="publishComment()">Publish Comment</button>
+      </form>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<div style="margin-top: 10px;">
+  <h4>Comments</h4>
+  <mat-card *ngFor="let comment of comments" style="margin-top: 10px;">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{comment.postedBy}}</mat-card-title>
+      <mat-card-subtitle>{{comment.createdAt | date: 'medium'}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{comment.content}}</p>
+    </mat-card-content>
+  </mat-card>
 </div>

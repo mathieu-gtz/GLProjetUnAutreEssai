@@ -1,3 +1,11 @@
+
+<form class="search-form" [formGroup]="searchForm">
+  <mat-form-field appearance="outline" class="search-input">
+    <mat-label>Enter Keyword to search </mat-label>
+    <input matInput formControlName="title" (input)="searchProject()">
+  </mat-form-field>
+</form>
+
 <div class="dashboard-container">
   <h2>Manager Dashboard</h2>
   <button
@@ -8,28 +16,7 @@
     Create Project
   </button>
 
-  <!-- Formulaire de recherche (commenté pour l'instant) -->
-  <!--
-  <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
-    <mat-form-field appearance="outline">
-      <mat-label>Search Projects</mat-label>
-      <input
-        matInput
-        formControlName="title"
-        placeholder="Enter project title"
-      />
-      <button
-        mat-icon-button
-        matSuffix
-        mat-icon-button
-        aria-label="Search"
-        type="submit"
-      >
-        <mat-icon>search</mat-icon>
-      </button>
-    </mat-form-field>
-  </form>
-  -->
+
 
   <div class="projects-list">
     <mat-card

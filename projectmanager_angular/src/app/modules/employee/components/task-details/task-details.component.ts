@@ -12,8 +12,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class TaskDetailsComponent implements OnInit {
   taskForm!: FormGroup;
-  taskId!: string;
+  taskId: string;
   task: any;
+  comments:any;
+  commentForm!: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,8 +28,12 @@ export class TaskDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.taskId = this.route.snapshot.paramMap.get('taskId')!;
     this.getTaskById();
+    this.getComments();
     this.taskForm = this.fb.group({
       taskStatus: ['', Validators.required]
+    });
+    this.commentForm = this.fb.group({
+      content: [null, Validators.required]
     });
   }
 
@@ -57,5 +63,56 @@ export class TaskDetailsComponent implements OnInit {
         }
       );
     }
+  }
+
+  getPriorityColor(priority: string): string {
+    switch (priority) {
+      case 'LOW':
+        return 'green';
+      case 'MEDIUM':
+        return 'orange';
+      case 'HIGH':
+        return 'red';
+      default:
+        return 'black';
+    }
+  }
+
+  getStatusColor(status: string): string {
+    switch (status) {
+      case 'COMPLETED':
+        return 'green';
+      case 'INPROGRESS':
+        return 'blue';
+      case 'PENDING':
+        return 'orange';
+      case 'CANCELED':
+        return 'red';
+      case 'DEFERRED':
+        return 'yellow';
+      default:
+        return 'black';
+    }
+  }
+
+  publishComment() {
+    let taskid : number = Number(this.taskId);
+    this.employeeService.createComment(taskid, this.commentForm.get("content").value).subscribe((res)=>{
+      if(res.id != null){
+        this.snackBar.open("Comment published successfully", "Close", {duration:5000});
+        this.getComments();
+        this.commentForm.get("content").reset();
+      }
+      else{
+        this.snackBar.open("Error encountered while publishing comment.", "Error", {duration:5000});
+      }
+    });
+  }
+
+  getComments(){
+    let taskid : number = Number(this.taskId);
+    this.employeeService.getCommentsByTask(taskid).subscribe((res)=>{
+      this.comments=res;
+    });
   }
 }

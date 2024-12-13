@@ -193,11 +193,20 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public List<TaskDto> searchTaskByTitle(String title) {
-        return taskRepository.findAllByTitleContaining(title)
+    public List<TaskDto> searchProjectTaskByTitle(Long projectId, String title) {
+        return taskRepository.findAllByProject_IdAndTitleContaining(projectId, title)
                 .stream()
                 .sorted(Comparator.comparing(Task::getDueDate).reversed())
                 .map(Task::getTaskDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProjectDto> searchManagerProjectByName(Long managerId, String name) {
+        return projectRepository.findAllByManager_IdAndNameContaining(managerId, name)
+                .stream()
+                .sorted(Comparator.comparing(Project::getEndDate).reversed())
+                    .map(Project::getProjectDto)
                 .collect(Collectors.toList());
     }
 

@@ -1,3 +1,10 @@
+<form class="search-form" [formGroup]="searchForm">
+  <mat-form-field appearance="outline" class="search-input">
+    <mat-label>Enter Keyword to search </mat-label>
+    <input matInput formControlName="title" (input)="searchTask()">
+  </mat-form-field>
+</form>
+
 <div class="container">
   <h2>My Tasks</h2>
   <div class="tasks-list">
@@ -15,11 +22,11 @@
         <p><strong>Project:</strong> {{ task.projectName }}</p>
         <p>
           <strong>Status:</strong>
-          <span class="status">{{ task.taskStatus }}</span>
+          <span class="status" [ngStyle]="{ color: getStatusColor(task.taskStatus), fontWeight: 'bold' }">{{ task.taskStatus }}</span>
         </p>
         <p>
           <strong>Priority:</strong>
-          <span class="priority">{{ task.priority }}</span>
+          <span class="priority" [ngStyle]="{ color: getPriorityColor(task.priority), fontWeight: 'bold' }">{{ task.priority }}</span>
         </p>
       </mat-card-content>
     </mat-card>

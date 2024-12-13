@@ -83,5 +83,44 @@ export class ManagerService {
     return this.http.put(BASE_URL + `tasks/${taskId}`, task, { headers });
   }
 
-  
+  searchProject(managerId:number, title:String):Observable<any>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${StorageService.getToken()}`,
+    });
+    return this.http.get(BASE_URL +"managers/"+ managerId+"/projects/search/" +title, {headers});
+  }
+
+  searchTask(projectId:number, title:String):Observable<any>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${StorageService.getToken()}`,
+    });
+    return this.http.get(BASE_URL + "projects/"+projectId+"/tasks/search/" +title, {headers});
+  }
+
+  createComment(id:number, content:string):Observable<any>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${StorageService.getToken()}`,
+    });
+    const params={
+      content:content
+    };
+    return this.http.post(BASE_URL + "task/comment/" + id, null, {params:params, headers});
+  }
+
+  getCommentsByTask(id:number):Observable<any>{
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${StorageService.getToken()}`,
+    });
+    return this.http.get(BASE_URL + "comments/" + id, {headers});
+  }
+
+
 }

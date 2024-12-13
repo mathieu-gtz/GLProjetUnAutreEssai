@@ -1,19 +1,97 @@
-.container {
-    padding: 20px;
-  
-    .tasks-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-  
-      mat-card {
-        width: 300px;
-        cursor: pointer;
-      }
-    }
 
-    mat-progress-bar {
-        width: 50%; // Ajustez la largeur selon vos besoins
-        margin-top: 10px; // Ajoutez un espace au-dessus de la barre de progression
-      }
+.search-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.search-input {
+  width: 300px;
+  margin-right: 15px;
+}
+
+.search-input input {
+  padding-right: 40px;
+}
+
+.container {
+  margin: 20px;
+}
+
+.container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.container p {
+  margin: 5px 0;
+  font-size: 16px;
+}
+
+.container mat-progress-bar {
+  margin: 15px 0;
+}
+
+.tasks-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tasks-list mat-card {
+  width: calc(32% - 15px);
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  background: #fff;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+@media (max-width: 1200px) {
+  .tasks-list mat-card {
+    width: calc(48% - 15px);
   }
+}
+
+@media (max-width: 768px) {
+  .tasks-list mat-card {
+    width: calc(100% - 15px);
+  }
+}
+
+.tasks-list mat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.tasks-list mat-card mat-card-header {
+  padding-bottom: 0;
+}
+
+.tasks-list mat-card mat-card-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #673AB7;
+}
+
+.tasks-list mat-card mat-card-content p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.tasks-list mat-card mat-card-content p strong {
+  font-weight: bold;
+}
+
+button[mat-raised-button] {
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

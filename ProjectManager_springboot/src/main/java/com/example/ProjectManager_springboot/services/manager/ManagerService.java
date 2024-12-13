@@ -33,6 +33,8 @@ public interface ManagerService {
 
     List<CommentDto> getCommentsByTaskId(Long taskId);
 
-    List<TaskDto> searchTaskByTitle(String title);
+    List<TaskDto> searchProjectTaskByTitle(Long projectId, String title);
+
+    List<ProjectDto> searchManagerProjectByName(Long managerId, String name);
 
 }
