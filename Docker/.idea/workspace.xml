@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d6761749-a0ac-4951-94d2-06981a9e0863" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../ProjectManager_springboot/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../ProjectManager_springboot/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ProjectManager_springboot/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../ProjectManager_springboot/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../ProjectManager_springboot/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../ProjectManager_springboot/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../projectmanager_angular/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../projectmanager_angular/Dockerfile" afterDir="false" />
