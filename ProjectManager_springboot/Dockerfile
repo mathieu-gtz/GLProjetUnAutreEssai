@@ -1,29 +1,32 @@
-# Utilisation de l'image de base OpenJDK pour Java
+# Étape 1 : Utiliser l'image de base OpenJDK pour compiler et exécuter Java
 FROM openjdk:17-jdk-slim AS build
 
-# Installation de Maven pour compiler le projet
-RUN apt-get update && apt-get install -y maven
-
-# Définir le répertoire de travail
+# Étape 2 : Définir le répertoire de travail
 WORKDIR /app
 
-# Copier les fichiers du projet dans le conteneur
-COPY . .
+# Étape 3 : Copier les fichiers sources Java dans le conteneur
+COPY src /app/src
 
-# Compiler l'application avec Maven
-RUN mvn clean package -DskipTests
+# Étape 4 : Créer le répertoire pour les classes compilées
+RUN mkdir -p /app/target/classes
 
-# Étape pour l'exécution
+# Étape 5 : Compiler les fichiers sources Java avec javac
+RUN javac -d /app/target/classes /app/src/**/*.java
+
+# Étape 6 : Créer le JAR avec la commande jar
+RUN jar cf /app/target/app.jar -C /app/target/classes .
+
+# Étape 7 : Étape pour l'exécution
 FROM openjdk:17-jdk-slim
 
-# Définir le répertoire de travail
+# Étape 8 : Définir le répertoire de travail
 WORKDIR /app
 
-# Copier le fichier JAR du répertoire de build de l'étape précédente
-COPY --from=build /app/out/artifacts/ProjectManager_springboot_jar/ProjectManager_springboot.jar /app/app.jar
+# Étape 9 : Copier le fichier JAR compilé depuis l'étape de construction
+COPY --from=build /app/target/app.jar /app/app.jar
 
-# Exposer le port 8080 pour l'application Spring Boot
+# Étape 10 : Exposer le port 8080 pour l'application Spring Boot
 EXPOSE 8080
 
-# Commande pour lancer l'application Spring Boot
+# Étape 11 : Lancer l'application avec Java
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
