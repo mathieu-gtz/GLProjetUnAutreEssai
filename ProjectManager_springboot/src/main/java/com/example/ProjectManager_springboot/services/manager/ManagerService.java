@@ -1,5 +1,6 @@
 package com.example.ProjectManager_springboot.services.manager;
 
+import com.example.ProjectManager_springboot.dto.CommentDto;
 import com.example.ProjectManager_springboot.dto.ProjectDto;
 import com.example.ProjectManager_springboot.dto.TaskDto;
 import com.example.ProjectManager_springboot.dto.UserDto;
@@ -27,4 +28,11 @@ public interface ManagerService {
     TaskDto getTaskById(Long id);
 
     List<UserDto> getAllManagers();
+
+    CommentDto createComment(Long taskId, String content);
+
+    List<CommentDto> getCommentsByTaskId(Long taskId);
+
+    List<TaskDto> searchTaskByTitle(String title);
+
 }

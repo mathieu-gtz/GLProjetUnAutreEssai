@@ -1,19 +1,26 @@
 package com.example.ProjectManager_springboot.services.manager;
 
+import com.example.ProjectManager_springboot.dto.CommentDto;
 import com.example.ProjectManager_springboot.dto.ProjectDto;
 import com.example.ProjectManager_springboot.dto.TaskDto;
 import com.example.ProjectManager_springboot.dto.UserDto;
+import com.example.ProjectManager_springboot.entities.Comment;
 import com.example.ProjectManager_springboot.entities.Project;
 import com.example.ProjectManager_springboot.entities.Task;
 import com.example.ProjectManager_springboot.entities.User;
 import com.example.ProjectManager_springboot.enums.TaskStatus;
 import com.example.ProjectManager_springboot.enums.UserRole;
+import com.example.ProjectManager_springboot.repositories.CommentRepository;
 import com.example.ProjectManager_springboot.repositories.ProjectRepository;
 import com.example.ProjectManager_springboot.repositories.TaskRepository;
 import com.example.ProjectManager_springboot.repositories.UserRepository;
+import com.example.ProjectManager_springboot.utils.JwtUtil;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -25,6 +32,8 @@ public class ManagerServiceImpl implements ManagerService {
     private final ProjectRepository projectRepository;
     private final UserRepository userRepository;
     private final TaskRepository taskRepository;
+    private final CommentRepository commentRepository;
+    private final JwtUtil jwtUtil;
 
     @Override
     public ProjectDto createProject(ProjectDto projectDto) {
@@ -158,6 +167,38 @@ public class ManagerServiceImpl implements ManagerService {
             default:
                 return TaskStatus.CANCELED;
         }
+    }
+
+    @Override
+    public CommentDto createComment(Long taskId, String content) {
+        Optional<Task> optionalTask=taskRepository.findById(taskId);
+        User user = jwtUtil.getLoggedInUser();
+        if((optionalTask.isPresent()) && (user != null)){
+            Comment comment = new Comment();
+            comment.setCreatedAt(new Date());
+            comment.setContent(content);
+            comment.setTask(optionalTask.get());
+            comment.setUser(user);
+            return commentRepository.save(comment).getCommentDto();
+        }
+        throw new EntityNotFoundException("User or Task not found");
+    }
+
+    @Override
+    public List<CommentDto> getCommentsByTaskId(Long taskId) {
+        return commentRepository.findAllByTaskId(taskId)
+                .stream()
+                .map(Comment::getCommentDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TaskDto> searchTaskByTitle(String title) {
+        return taskRepository.findAllByTitleContaining(title)
+                .stream()
+                .sorted(Comparator.comparing(Task::getDueDate).reversed())
+                .map(Task::getTaskDto)
+                .collect(Collectors.toList());
     }
 
 

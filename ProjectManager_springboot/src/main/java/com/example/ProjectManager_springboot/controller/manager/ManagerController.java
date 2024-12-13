@@ -1,5 +1,6 @@
 package com.example.ProjectManager_springboot.controller.manager;
 
+import com.example.ProjectManager_springboot.dto.CommentDto;
 import com.example.ProjectManager_springboot.dto.ProjectDto;
 import com.example.ProjectManager_springboot.dto.TaskDto;
 import com.example.ProjectManager_springboot.dto.UserDto;
@@ -129,5 +130,20 @@ public class ManagerController {
         return ResponseEntity.ok(employees);
     }
 
+    @GetMapping(path="/tasks/search/{title}")
+    public ResponseEntity<List<TaskDto>> searchTask(@PathVariable String title) {
+        return ResponseEntity.ok(managerService.searchTaskByTitle(title));
+    }
 
+    @PostMapping(path="/task/comment/{taskId}")
+    public ResponseEntity<CommentDto> createComment(@PathVariable Long taskId, @RequestParam String content) {
+        CommentDto createdCommentDto = managerService.createComment(taskId, content);
+        if(createdCommentDto == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdCommentDto);
+    }
+
+    @GetMapping(path="/comments/{taskId}")
+    public ResponseEntity<List<CommentDto>> getCommentByTaskId(@PathVariable Long taskId) {
+        return ResponseEntity.ok(managerService.getCommentsByTaskId(taskId));
+    }
 }
