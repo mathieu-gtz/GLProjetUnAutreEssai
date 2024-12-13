@@ -1,29 +1,14 @@
-# Utilisation de l'image de base OpenJDK pour Java
-FROM openjdk:17-jdk-slim AS build
+# Utilisation d'une image de base avec OpenJDK 17
+FROM openjdk:17-jdk-slim AS runtime
 
-# Installation de Maven pour compiler le projet
-RUN apt-get update && apt-get install -y maven
-
-# Définir le répertoire de travail
+# Définir le répertoire de travail dans le conteneur
 WORKDIR /app
 
-# Copier les fichiers du projet dans le conteneur
-COPY . .
+# Copier le fichier JAR à partir du répertoire correct
+COPY out/artifacts/ProjectManager_springboot_jar/ProjectManager_springboot.jar /app/ProjectManager_springboot.jar
 
-# Compiler l'application avec Maven
-RUN mvn clean package -DskipTests
-
-# Étape pour l'exécution
-FROM openjdk:17-jdk-slim
-
-# Définir le répertoire de travail
-WORKDIR /app
-
-# Copier le fichier JAR de l'étape précédente dans le conteneur
-COPY --from=build /app/target/*.jar app.jar
-
-# Exposer le port 8080 pour l'application Spring Boot
+# Exposer le port sur lequel l'application va écouter (par défaut 8080 pour Spring Boot)
 EXPOSE 8080
 
-# Commande pour lancer l'application Spring Boot
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+# Commande pour lancer l'application Spring Boot avec Java
+ENTRYPOINT ["java", "-jar", "/app/ProjectManager_springboot.jar"]

@@ -1,0 +1,47 @@
+services:
+  # Base de données MySQL
+  - type: database
+    name: taskdb
+    databaseType: mysql
+    version: 8.0
+    plan: free
+    envVars:
+      - key: MYSQL_ROOT_PASSWORD
+        value: 123456
+      - key: MYSQL_DATABASE
+        value: taskdb
+
+  # Backend Spring Boot
+  - type: web
+    name: projectmanager_springboot
+    env: docker
+    build:
+      path: ./ProjectManager_springboot
+      dockerfile: Dockerfile
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:mysql://taskdb:3306/taskdb
+      - key: SPRING_DATASOURCE_USERNAME
+        value: root
+      - key: SPRING_DATASOURCE_PASSWORD
+        value: 123456
+    plan: free
+    autoscale:
+      minInstances: 1
+      maxInstances: 3
+    healthCheckPath: /actuator/health
+    startCommand: java -jar /app.jar
+
+  # Frontend Angular
+  - type: web
+    name: projectmanager_angular
+    env: docker
+    build:
+      path: ./projectmanager_angular
+      dockerfile: Dockerfile
+    plan: free
+    routes:
+      - type: web
+        name: frontend-route
+        source: /
+        destination: /
