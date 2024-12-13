@@ -18,7 +18,7 @@ RUN npm run build --prod
 FROM nginx:alpine
 
 # Copier les fichiers build dans le répertoire de Nginx
-COPY --from=build /app/dist/your-angular-project-name /usr/share/nginx/html
+COPY --from=build /app/dist/projectmanager_angular /usr/share/nginx/html
 
 # Exposer le port 80 pour accéder à l'application Angular
 EXPOSE 80
