@@ -18,7 +18,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/manager")
-@CrossOrigin(origins = "*")
 public class ManagerController {
     private final ManagerService managerService;
     private final ProjectRepository projectRepository;
