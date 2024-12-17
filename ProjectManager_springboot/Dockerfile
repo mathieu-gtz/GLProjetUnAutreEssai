@@ -1,10 +1,21 @@
-FROM openjdk:17-jdk-slim AS runtime
+FROM maven:3.8.5-openjdk-17-slim AS builder
 
 WORKDIR /app
 
-COPY out/artifacts/ProjectManager_springboot_jar/ProjectManager_springboot.jar /app/ProjectManager_springboot.jar
+COPY pom.xml .
+
+RUN mvn dependency:go-offline
+
+COPY src /app/src
+
+RUN mvn clean package -DskipTests
+
+FROM openjdk:17-slim
+
+WORKDIR /app
+
+COPY --from=builder /app/target/*.jar app.jar
 
 EXPOSE 8080
 
-
-ENTRYPOINT ["java", "-jar", "/app/ProjectManager_springboot.jar"]
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]

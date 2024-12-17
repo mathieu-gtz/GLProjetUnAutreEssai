@@ -12,7 +12,7 @@ public class CorsConfig {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOriginPattern("http://localhost:4200"); // Autoriser les requêtes provenant de http://localhost:4200
+        corsConfiguration.addAllowedOriginPattern("*");
         corsConfiguration.addAllowedMethod("*"); // Autoriser toutes les méthodes (GET, POST, PUT, DELETE, etc.)
         corsConfiguration.addAllowedHeader("*"); // Autoriser tous les en-têtes
         corsConfiguration.setAllowCredentials(true); // Autoriser les cookies

@@ -9,9 +9,9 @@ COPY . .
 
 RUN npm run build --prod
 
-FROM nginx:alpine 
+FROM nginx:alpine
 
-COPY --from=build /app/dist/projectmanager_angular /usr/share/nginx/html
+COPY --from=build /app/dist/projectmanager_angular/browser /usr/share/nginx/html
 
 EXPOSE 80
 

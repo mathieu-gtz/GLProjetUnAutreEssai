@@ -1,0 +1,52 @@
+services:
+
+  taskdb:
+    image: mysql:latest
+    container_name: taskdb
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: taskdb
+    ports:
+      - "3306:3306"
+    networks:
+      - app-network
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: always
+
+
+  projectmanager_springboot:
+    build:
+      context: ./ProjectManager_springboot
+    container_name: projectmanager_springboot
+    ports:
+      - "8080:8080"
+    depends_on:
+      - taskdb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://taskdb:3306/taskdb
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456
+    networks:
+      - app-network
+    restart: always
+
+  projectmanager_angular:
+    build:
+      context: ./projectmanager_angular
+    container_name: projectmanager_angular
+    ports:
+      - "80:80"
+    depends_on:
+      - projectmanager_springboot
+    networks:
+      - app-network
+    restart: always
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+    driver: local
